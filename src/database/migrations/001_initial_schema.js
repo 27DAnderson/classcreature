@@ -4,6 +4,7 @@
 export async function up(knex) {
   await knex.schema.createTable('users', (table) => {
     table.string('id', 36).primary();
+    table.string('fid', 36).nullable().unique(); 
     table.string('display_name', 120).notNullable();
     table.string('primary_email', 255).nullable().unique();
     table.timestamp('email_verified_at').nullable();
@@ -102,21 +103,37 @@ export async function up(knex) {
   });
 
   await knex.schema.createTable('creatures', (table) => {
-    table.string('id', 36).primary().autoIncrement().references('id').inTable('users').onDelete('CASCADE');
-    table.string('name', 64).notNullable().unique();
+    table.string('id', 36).primary();
+    table.string('user_id', 36)
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE');
+
+    table.string('name', 64).notNullable();
     table.string('creaturetype', 36).nullable();
-  });
+
+    table.index(['user_id']);
+});
 
   await knex.schema.createTable('inventory', (table) => {
-    table.string('id', 36).primary().autoIncrement().references('id').inTable('users').onDelete('CASCADE');
-    table.string('name', 64).notNullable().unique();
+    table.string('id', 36).primary();
+    table.string('user_id', 36)
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE');
+
+    table.string('name', 64).notNullable();
     table.string('itemtype', 36).nullable();
-  });
+
+    table.index(['user_id']);
+});
 
   await knex.schema.createTable('shop', (table) => {
     table.string('id', 36).primary().autoIncrement();
     table.string('name', 64).notNullable().unique();
-    table.integer('price', 36).nullable();
+    table.integer('price').notNullable().defaultTo(0);
   });
 }
 
