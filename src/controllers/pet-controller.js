@@ -18,5 +18,10 @@ export function createPetController(container) {
         features: container.config.features,
       });
     },
+    stats(req, res) {
+      res.render('pages/stats', {
+        title: 'Stats'
+      });
+    },
   };
 }

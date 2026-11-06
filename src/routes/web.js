@@ -12,5 +12,6 @@ export function createWebRouter(container) {
   router.get('/inventory', petController.inventory)
   router.get('/creature', petController.creature)
   router.get('/egg', petController.egg)
+  router.get('/stats', petController.stats)
   return router;
 }
