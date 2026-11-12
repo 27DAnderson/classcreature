@@ -12,7 +12,8 @@ export function createWebRouter(container) {
   router.get('/inventory', requireAuthentication(), petController.inventory)
   router.get('/creature', requireAuthentication(), petController.creature)
   router.get('/egg', requireAuthentication(), petController.egg)
-  router.get('/shop', petController.shop)
-  router.get('/stats', petController.stats)
+  router.get('/shop', requireAuthentication(), petController.shop)
+  router.get('/stats', requireAuthentication(), petController.stats)
+  router.get('/laboratory', requireAuthentication(), petController.laboratory)
   return router;
 }
