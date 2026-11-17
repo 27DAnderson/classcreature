@@ -1,0 +1,9 @@
+div.pet {
+    margin-top: 40px;
+    img {
+        width: 100px;
+        height: 100px;
+    }
+    outline: 2px solid black;
+    display: inline-block;
+}
